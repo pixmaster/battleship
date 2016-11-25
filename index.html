@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="battleship">
+  <head>
+    <title>Battleship</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="app/player.js"></script>
+    <script src="app/game.js"></script>
+    <script src="app/gameCtrl.js"></script>
+  </head>
+  <body>
+    <div ng-controller="gameCtrl">
+      <div>Current Player: {{players[currentPlayer].name}}</div>
+      <div ng-repeat="(playerNumber, player) in players" class="player">
+        <div>Player: {{player.name}}, Score: {{player.score}}, Wins: {{player.wins}}</div>
+        <div class="table player-type-{{player.type}}">
+          <div class="table-row" ng-repeat="(rowIndex, row) in player.field track by $index">
+            <div class="table-cell" ng-class="{emptyFire:(cellValue === -1), ship:(cellValue === -2 || cellValue > 0), dead:(cellValue === -2)}" ng-repeat="cellValue in row track by $index" ng-click="fire(playerNumber, cellValue, rowIndex, $index)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
